@@ -14,7 +14,7 @@ pipeline{
                 script{
                     withSonarQubeEnv(credentialsId: 'sonar-token') {
                             sh 'chmod +x gradlew'
-                            sh './gradlew sonarqube --status --debug'
+                            sh './gradlew sonarqube'
                     }
 
                     // timeout(time: 1, unit: 'HOURS') {
