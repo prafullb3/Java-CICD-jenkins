@@ -12,7 +12,7 @@ pipeline{
             }
             steps{
                 script{
-                    withSonarQubeEnv(credentialsId: 'sonar-token') {
+                    withSonarQubeEnv("Sonarserver") {
                             // sh 'chmod +x gradlew'
                             // sh './gradlew sonarqube'
                         tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
