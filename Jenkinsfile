@@ -16,7 +16,7 @@ pipeline{
                     //sh 'chmod +x gradlew'
                     // sh './gradlew sonarqube'
                        tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                       sh "${tool("sonar")}/sonar/bin/sonar-scanner"
+                       sh "${tool("sonar")}/bin/sonar-scanner"
                     }
 
                     // timeout(time: 5, unit: 'MINUTES') {
