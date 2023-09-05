@@ -5,18 +5,18 @@ pipeline{
     }
     stages{
         stage("sonar quality check"){
-            agent {
-                docker {
-                    image 'openjdk:11'
-                }
-            }
+            // agent {
+            //     docker {
+            //         image 'openjdk:11'
+            //     }
+            // }
             steps{
                 script{
                     withSonarQubeEnv("Sonarserver") {
-                    sh 'chmod +x gradlew'
-                     sh './gradlew sonarqube'
-                    //    tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    //    sh "${tool("sonar")}/sonar/bin/sonar-scanner"
+                    //sh 'chmod +x gradlew'
+                    // sh './gradlew sonarqube'
+                       tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                       sh "${tool("sonar")}/sonar/bin/sonar-scanner"
                     }
 
                     timeout(time: 1, unit: 'HOURS') {
