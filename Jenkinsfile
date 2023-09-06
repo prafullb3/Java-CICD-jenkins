@@ -33,12 +33,13 @@ pipeline{
 
                 }  
             }
-        }
-        stage("sonar quality check"){
+            stage("sonar quality check"){
             steps{
                 waitForQualityGate abortPipeline: true
             }
         }
+        }
+        
 
 
         // stage("docker build & docker push"){
