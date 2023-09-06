@@ -13,10 +13,10 @@ pipeline{
             steps{
                 script{
                     withSonarQubeEnv("Sonarserver") {
-                    sh 'chmod +x gradlew'
-                    sh './gradlew sonarqube'
-                    //    tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    //    sh "${tool("sonar")}/bin/sonar-scanner"
+                    // sh 'chmod +x gradlew'
+                    // sh './gradlew sonarqube'
+                       tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                       sh "${tool("sonar")}/bin/sonar-scanner"
                     }
 
                     // withSonarQubeEnv('SonarQube') {
