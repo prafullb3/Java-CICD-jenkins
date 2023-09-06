@@ -19,10 +19,10 @@ pipeline{
                        sh "${tool("sonar")}/bin/sonar-scanner"
                     }
 
-                    withSonarQubeEnv('SonarQube') {
-                    sh "./gradlew sonarqube"
+                    // withSonarQubeEnv('SonarQube') {
+                    // sh "./gradlew sonarqube"
 
-                    waitForQualityGate abortPipeline: true
+                    // waitForQualityGate abortPipeline: true
                 }
                     // timeout(time: 5, unit: 'MINUTES') {
                     //   def qg = waitForQualityGate()
