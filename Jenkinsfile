@@ -33,11 +33,11 @@ pipeline{
 
                 }  
             }
-            stage("sonar quality check"){
-            steps{
-                waitForQualityGate abortPipeline: true
+            stage("sonar quality gate analysis"){
+                steps{
+                    waitForQualityGate abortPipeline: true
+                }
             }
-        }
         }
         
 
