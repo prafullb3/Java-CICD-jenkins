@@ -38,22 +38,23 @@ pipeline{
                     waitForQualityGate abortPipeline: true
                 }
             }
-        }
         
-        stage("docker build & docker push"){
-            steps{
-                script{
-                    withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_password')]) {
-                             sh '''
-                                docker build -t 3.7.254.56:8083/springapp:${VERSION} .
-                                docker login -u admin -p $docker_password 3.7.254.56:8083 
-                                docker push  3.7.254.56:8083/springapp:${VERSION}
-                                docker rmi 3.7.254.56:8083/springapp:${VERSION}
-                            '''
+        
+            stage("docker build & docker push"){
+                steps{
+                    script{
+                        withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_password')]) {
+                                sh '''
+                                    docker build -t 3.7.254.56:8083/springapp:${VERSION} .
+                                    docker login -u admin -p $docker_password 3.7.254.56:8083 
+                                    docker push  3.7.254.56:8083/springapp:${VERSION}
+                                    docker rmi 3.7.254.56:8083/springapp:${VERSION}
+                                '''
+                        }
                     }
                 }
             }
-        }
+    }
         // stage('indentifying misconfigs using datree in helm charts'){
         //     steps{
         //         script{
