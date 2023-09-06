@@ -5,11 +5,6 @@ pipeline{
     }
     stages{
         stage("sonar quality check"){
-            // agent {
-            //     docker {
-            //         image 'openjdk:11'
-            //     }
-            // }
             steps{
                 script{
                     withSonarQubeEnv("Sonarserver") {
@@ -18,19 +13,7 @@ pipeline{
                     //    tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     //    sh "${tool("sonar")}/bin/sonar-scanner"
                     }
-
-                    // withSonarQubeEnv('SonarQube') {
-                    // sh "./gradlew sonarqube"
-
-                    // waitForQualityGate abortPipeline: true
                 }
-                    // timeout(time: 5, unit: 'MINUTES') {
-                    //   def qg = waitForQualityGate()
-                    //   if (qg.status != 'OK') {
-                    //        error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                    //   }
-                   // }
-
                 }  
             }
             stage("sonar quality gate analysis"){
@@ -54,19 +37,21 @@ pipeline{
                     }
                 }
             }
-    }
-        // stage('indentifying misconfigs using datree in helm charts'){
-        //     steps{
-        //         script{
+    
+        stage('indentifying misconfigs using datree in helm charts'){
+            steps{
+                script{
 
-        //             dir('kubernetes/') {
-        //                 withEnv(['DATREE_TOKEN=GJdx2cP2TCDyUY3EhQKgTc']) {
-        //                       sh 'helm datree test myapp/'
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+                    dir('kubernetes/') {
+                        // withEnv(['DATREE_TOKEN=GJdx2cP2TCDyUY3EhQKgTc']) {
+                        //       sh 'helm datree test myapp/'
+                        sh 'helm datree test myapp/'
+                        }
+                    }
+                }
+            }
+        }
+    }
         // stage("pushing the helm charts to nexus"){
         //     steps{
         //         script{
