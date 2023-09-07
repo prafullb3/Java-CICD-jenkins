@@ -48,9 +48,21 @@ pipeline{
                                     tar -czvf  myapp-${helmversion}.tgz myapp/
                                     curl -u admin:$docker_password http://13.126.150.193:8081/repository/helm-charts/ --upload-file myapp-${helmversion}.tgz -v
                                 '''
+                            }
                         }
                     }
                 }
+            }
+
+            stage('Deploying application on k8s cluster') {
+                steps {
+                    script{
+                        withCredentials([kubeconfigFile(credentialsId: 'k8s', variable: 'KUBECONFIG')]) {
+                        dir('kubernetes/') {
+                          sh 'helm upgrade --install --set image.repository="13.126.150.193:8083/springapp" --set image.tag="${VERSION}" myjavaapp myapp/ ' 
+                        }
+                    }
+               }
             }
         }
     }
